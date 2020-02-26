@@ -13,8 +13,8 @@ class Ui {
                     <a href="${user.html_url}" target="_black" class="btn btn-primary btn-block mb-3 mt-3">View Profile</a>
                 </div>
                 <div class="col-md-9">
-                    <span class="badge badge-primary mb-2">Public Repos: ${user.pablic_repos}</span>
-                    <span class="badge badge-secondary mb-2">Public Gists: ${user.pablic_gists}</span>
+                    <span class="badge badge-primary mb-2">Public Repos: ${user.public_repos}</span>
+                    <span class="badge badge-secondary mb-2">Public Gists: ${user.public_gists}</span>
                     <span class="badge badge-success mb-2">Followers: ${user.followers}</span>
                     <span class="badge badge-info mb-2">Following: ${user.following}</span>
                     <br><br>
@@ -22,7 +22,7 @@ class Ui {
                         <li class="list-group-item">Company: ${user.company}</li>
                         <li class="list-group-item">Website/Blog: ${user.blog}</li>
                         <li class="list-group-item">Location: ${user.location}</li>
-                        <li class="list-group-item">Memver Since: ${user.created_at}</li>
+                        <li class="list-group-item">Member Since: ${user.created_at}</li>
                     </ul>
                 </div>
             </div>
@@ -31,6 +31,33 @@ class Ui {
         <div id="repos"></div>
         `;
     }
+
+    // Show user repos
+    showRepos(repos) {
+        let output = '';
+
+        repos.forEach(repo => {
+            output += `
+                <div class="card card-body mb-2">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="${repo.html_url}" target="_black">${repo.name}</a>
+                        </div>
+                        <div class="col-md-6">
+                        <span class="badge badge-primary mb-2">Stars: ${repo.stargazers_count}</span>
+                        <span class="badge badge-secondary mb-2">Watchers: ${repo.watchers_count}</span>
+                        <span class="badge badge-success mb-2">Forks: ${repo.forks_count}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Output repos
+        document.getElementById('repos').innerHTML = output;
+    }
+
+    
 
     // Show alert message
     showAlert(message, className) {
@@ -63,7 +90,6 @@ class Ui {
             currentAlert.remove();            
         }
     }
-
 
     // Clear profile
     clearProfile() {
